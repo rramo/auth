@@ -1,0 +1,16 @@
+
+POST http://localhost:9000/login HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+
+email=omar.djelassi@gmail.com
+&password=coucou
+
+### 
+
+POST http://localhost:9000/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "omar.djelassi@gmail.com",
+  "password": "bibi"
+}

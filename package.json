@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server",
+    "start": "nodemon app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -21,6 +21,7 @@
     "uuid": "^7.0.2"
   },
   "devDependencies": {
+    "node-fetch": "^2.6.0",
     "nodemon": "^2.0.2"
   }
 }
