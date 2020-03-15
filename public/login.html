@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    .container {
+      position: absolute;
+      display: flex;
+      flex-wrap: wrap;
+      transform: translateX(-50%) translateY(-50%);
+      left: 50%;
+      top: 40%;
+    }
+    .credentials {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: .5rem 0 .5rem;
+    }
+    .credentials .email,
+    .credentials .password{
+      position: relative;
+      padding: .5rem;
+    }
+    .credentials label {
+      position: absolute;
+      transform: translateY(-50%);
+      top: 50%;
+      left: 1.7rem;
+      font-size: 1rem;
+      font-weight: bold;
+      color: green;
+
+    }
+    .credentials input:focus+label,
+    .credentials input:not(:placeholder-shown)+label {
+      left: 1.7rem;
+      top: 12px;
+      font-size: .8rem;
+      transform: translateY(0);
+      transition: all .2s;
+    }
+    .credentials input {
+      padding: 1.5rem 1rem 1.1rem;
+      font-size: 1rem;
+      min-width: 15rem;
+      background: white;
+      border: 1px solid darkgreen;
+    }
+    .credentials input:focus {
+      padding: 1.5rem 1rem 1.1rem;
+    }
+    .actions {
+      position: relative;
+      padding: 1rem;
+    }
+    .actions button {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 1.3rem 2.5rem;
+      background: green;
+      color: white;
+      font-weight: bold;
+      font-size: .8rem;
+      border: 1px solid darkgreen;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div>
+      <form action="/authentication" method="POST">
+        <div class="credentials">
+          <div class="email">
+            <input type="text" name="email" id="email" placeholder=" ">
+            <label for="email">E-mail</label>
+          </div>
+          <div class="password">
+            <input type="password" name="password" id="password" placeholder=" ">
+            <label for="password">Password</label>
+          </div>
+        </div>
+        <div class="actions"><button type="submit">Sign in</button></div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

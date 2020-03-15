@@ -7,10 +7,8 @@ email=omar.djelassi@gmail.com
 
 ### 
 
-POST http://localhost:9000/login HTTP/1.1
+GET http://localhost:9000/details HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJCazBsUGFHUzgiLCJlbWFpbCI6Im9tYXIuZGplbGFzc2lAZ21haWwuY29tIiwiaWF0IjoxNTg0MTk4Nzk2LCJleHAiOjE1ODQyMDIzOTYsImF1ZCI6InJyYW1vIHdlYiBzaXRlIiwiaXNzIjoicnJhbW8gYXV0aCBzZXJ2ZXIifQ.sYpbUFw839ZR_oVOP-TOOb0Ots5uG-ziqTlwEDY9doQj63OGUmhRJ4szFfyOyRC52KA0LVo7k33QnnusgCMBGTaa-IhQHYTmbe3w3MQ6AHk6F0q5bcLdityKdNufOX5TkqkK5e8n7TLQ5E3hJCUNWds5rX95QPPMaw2vCgwORBw
 
-{
-  "email": "omar.djelassi@gmail.com",
-  "password": "bibi"
-}
+

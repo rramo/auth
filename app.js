@@ -1,48 +1,43 @@
-const bodyParser = require('body-parser')
-const cors = require('cors')
 const fs = require('fs')
 const express = require('express')
-const expressJWT = require('express-jwt')
-const jwt = require('jsonwebtoken')
-const { db } = require('./src/db')
-console.log(db)
-console.log(db.store)
-
-const port = 9000
-
 const app = express()
+const bodyParser = require('body-parser')
+const cors = require('cors')
+const jwt = require('jsonwebtoken')
+require('dotenv').config()
 
-// const jwtSecret = Buffer.from('2beee884-53e9-4c16-a936-6056321ee3eb', 'base64')
-const publicKey = fs.readFileSync('./src/key/public.key', 'utf8')
+const { db } = require('./src/db')
+const isAuth = require('./middleware/is-auth')
+
 const privateKey = fs.readFileSync('./src/key/private.key', 'utf8')
 
-// application/x-www-form-urlencoded
-// app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static('public'))
+app.use(cors())
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.json())
 
-// application/json
-// app.use(bodyParser.json());
-
-console.log(publicKey)
-
-app.use(cors(), bodyParser.urlencoded({extended: true}), bodyParser.json(), expressJWT({
-  secret: publicKey,
-  credentialsRequired: false
-}))
-
-app.post('/login', (req, res) => {
-  console.log('body', req.params, req.param)
+app.post('/authentication', (req, res) => {
   const { email, password } = req.body
-  console.log('email posted:', email)
 
   const user = db.users.list().find(u => u.email === email)
-  console.log('user:', user)
   if(!(user && user.password === password)) {
     res.sendStatus(401)
     return
   }
-
-  const token = jwt.sign({sub: user.id}, privateKey)
-  res.send({token})
+  
+  const signOptions = {
+    algorithm: 'RS256',
+    expiresIn: '1h',
+    issuer: process.env.ISSUER
+  }
+  const token = jwt.sign({sub: user.email}, privateKey, signOptions)
+  let url = `/details?token=${token}`
+  res.redirect(url)
 })
 
-app.listen(port, () => console.log(`server running and listenning on port ${port}`))
+app.get('/details', isAuth, (req, res) => {
+  const user = db.users.list().find(u => u.email === req.user.email)
+  res.send(`Welcome ${user.lastname}, you're authorized to see this page !`)
+})
+
+app.listen(process.env.PORT, () => console.log(`server running and listenning on port ${process.env.PORT}`))
